@@ -7,6 +7,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { setContext } from "./setContext.js"
 import { retrieveCmds } from "./retrieveCmds.js"
+import { getHistory } from "./bash_history.js"
 
 
 const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
@@ -35,6 +36,7 @@ let ptyProcess = pty.spawn(shell, [], {
 // Initialize
 context = setContext(process.cwd());
 parsedCommands = retrieveCmds(context)
+historyCmds = getHistory()
 for(let i of historyCmds) parsedCommands.push(i);
 console.log(parsedCommands)
 console.log(typeof parsedCommands);
